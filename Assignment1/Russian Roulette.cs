@@ -16,12 +16,8 @@ namespace Assignment1
 
     public partial class RouletteForm : Form
     {
-        // initial variable setting
-        public static int bullet = 0; // bullet place 0-5
-        public static int shot = 0; // shot total 1-6
-        public static int shot1 = 0; // shot for yourself
-        public static int shot2 = 0; // shot for air
-        public static int point = 0; // points 
+        RRClass RR = new RRClass();
+
         public RouletteForm()
         {
             InitializeComponent();
@@ -32,10 +28,15 @@ namespace Assignment1
             fire2.Enabled = false;
         }
 
+        private void RouletteForm_Load(object sender, EventArgs e)
+        {
+            // Starting message
+            Welcome.Text = "Game Start!";
+        }
+
         private void LoadBtn_Click(object sender, EventArgs e)
         {
-            // 0 setting for bullet loading
-            bullet = 0;
+            RR.Load();
             // setting for button control after loading
             LoadBtn.Enabled = false;
             SpinBtn.Enabled = true;
@@ -43,120 +44,79 @@ namespace Assignment1
 
         private void SpinBtn_Click(object sender, EventArgs e)
         {
-            // random setting for bullet loading
-            Random rand = new Random();
-            bullet = rand.Next(0, 6);
+            RR.Spin();
+            RR.BulletB();
             // setting for button control after spin
             SpinBtn.Enabled = false;
             Fire1.Enabled = true;
             fire2.Enabled = true;
-            // checking actual bullet number in the console
-            Console.WriteLine("Bullet is at: " + bullet);
+            // total point and shot to show
+            Points.Text = RR.Point.ToString();
+            Shots.Text = RR.Shot.ToString();
         }
 
         private void Fire1_Click(object sender, EventArgs e)
         {
-            // sound starts after clicking Fire1 (Fire yourself).
-            SoundPlayer player = new SoundPlayer(ResourcesFile.Sound);
-            player.Play();
-
-            // setting bullet = 5 as firing bullet which means dead.
-            if (bullet == 5)
+            Welcome.Text = "Brave shot!";
+            RR.Sound();
+            RR.ShotA();
+            // setting bullet = 5 as firing bullet to yourself which means dead.
+            if (RR.Bullet == 5)
             {
-                Result.Text = "LOSE";
-                Statement.Text = "Dead!";
-                point = point - 5;
+                RR.PointC();
+                Result.Text = "LOST!";
+                Statement.Text = "DEAD!";
                 Fire1.Enabled = false;
                 fire2.Enabled = false;
+                MessageBox.Show("Game over!");
             }
-            else
+            // 4 times shot yourself without bullet means remaining shot to be air
+            else if (RR.Shot1 == 4)
             {
-                // survived case as adding one point 
-                point = point + 1;
-            }
-
-            // 5 times shot yourself without bullet means remaining shot to be air
-            if (shot1 == 4)
-            {
+                RR.PointA();
                 Result.Text = "WIN!";
                 Statement.Text = "You have airshot for remaining.";
-                point = point + 10;
                 Fire1.Enabled = false;
                 fire2.Enabled = false;
+                MessageBox.Show("Game over!");
             }
 
-            // bullet shifts next location
-            bullet = bullet + 1;
-            if (bullet < 6)
-            {
-                Console.WriteLine("Bullet is at: " + bullet);
-            }
-            // total point to show
-            Points.Text = point.ToString();
-            // calculationg total shot counts and display
-            shot1 = shot1 + 1;
-            shot = shot1 + shot2;
-            Shots.Text = shot.ToString();
+            RR.PointB();
+            RR.BulletA();
+            RR.BulletB();
+
+            // total point and shot to show
+            Points.Text = RR.Point.ToString();
+            Shots.Text = RR.Shot.ToString();
         }
 
         private void fire2_Click(object sender, EventArgs e)
         {
-            // sound starts after clicking fire2 (Fire air).
-            SoundPlayer player = new SoundPlayer(ResourcesFile.Sound);
-            player.Play();
-
-            // bullet used to air which means win
-            if (bullet == 5)
+            Welcome.Text = "Secure shot!";
+            RR.Sound();
+            RR.ShotB();
+            // setting bullet = 5 as firing bullet to Air which means survived.
+            if (RR.Bullet == 5)
             {
+                RR.PointA();
                 Result.Text = "WIN!";
                 Statement.Text = "Game Over!";
-                point = point + 10;
                 Fire1.Enabled = false;
                 fire2.Enabled = false;
+                MessageBox.Show("Game over!");
             }
-
-            if (shot2 == 1)
+            if (RR.Shot2 == 2)
             {
                 // air shot is available only twice.
                 fire2.Enabled = false;
             }
-            // airshot without bullet twice which means lost
-            if (shot2 >= 3)
-            {
-                Result.Text = "LOST";
-                Statement.Text = "Airshot twice.";
-                point = point - 5;
-                Fire1.Enabled = false;
-                fire2.Enabled = false;
-            }
 
-            // bullet shifts next location
-            bullet = bullet + 1;
-            if (bullet < 6)
-            {
-                Console.WriteLine("Bullet is at: " + bullet);
-            }
-            // total point to show
-            Points.Text = point.ToString();
-            // counting shot total
-            shot2 = shot2 + 1;
-            shot = shot1 + shot2;
-            Shots.Text = shot.ToString();
+            RR.BulletA();
+            RR.BulletB();
+
+            // total point and shot to show
+            Points.Text = RR.Point.ToString();
+            Shots.Text = RR.Shot.ToString();
         }
-
-        public void MyMethod()
-        {
-        RRClass myObj = new RRClass();
-        Welcome.Text = myObj.starttitle;
-
-        }
-
-        private void RouletteForm_Load(object sender, EventArgs e)
-        {
-            MyMethod();
-        }
-
-
     }
-
 }

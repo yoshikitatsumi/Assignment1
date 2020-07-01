@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1", "Assignment1\Assignment1.csproj", "{438BFF9A-DEFE-455F-9F35-8E3D43FAAA4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRussianRoulette", "TestRussianRoulette\TestRussianRoulette.csproj", "{C523EAE3-47AC-487D-A829-61ACB0AF69B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{438BFF9A-DEFE-455F-9F35-8E3D43FAAA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{438BFF9A-DEFE-455F-9F35-8E3D43FAAA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{438BFF9A-DEFE-455F-9F35-8E3D43FAAA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C523EAE3-47AC-487D-A829-61ACB0AF69B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C523EAE3-47AC-487D-A829-61ACB0AF69B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C523EAE3-47AC-487D-A829-61ACB0AF69B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C523EAE3-47AC-487D-A829-61ACB0AF69B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
